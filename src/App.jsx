@@ -97,6 +97,7 @@ export default function App() {
                 onKeyDown={handleFtKeyDown}
                 placeholder="e.g. FT260886R92Z"
                 spellCheck={false}
+                maxLength={14}
                 autoComplete="off"
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 text-[15px] font-mono bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cbe-500 focus:border-transparent transition-all placeholder-gray-300 text-gray-800"
               />
