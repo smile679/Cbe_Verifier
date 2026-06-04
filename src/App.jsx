@@ -114,7 +114,7 @@ export default function App() {
                 onChange={(e) => {
                   setAcc(e.target.value);
                   setVerified(false);
-                  setSelectedAcc("")
+                  setSelectedAcc("");
                 }}
                 onKeyDown={handleAccKeyDown}
                 placeholder="e.g. 76345507"
@@ -185,7 +185,7 @@ export default function App() {
           <span>Created By Axon Tech.</span>
         </p>
       </div>
-      <div className="bg-white rounded-2xl shadow-sm border border-cbe-100 p-5 gap-5 max-sm:my-10 overflow-hidden">
+      <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-cbe-100 p-5 gap-5 max-sm:my-10 overflow-hidden">
         <h3 className="text-lg font-bold text-green-600">
           Team *Nouva* Acc Num's
         </h3>
