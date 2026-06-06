@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   CheckIcon,
   CopyIcon,
   ExternalLinkIcon,
   ReceiptIcon,
 } from "./icons/Icons";
+import { ChevronDown } from "lucide-react";
 
  const teams = [
    {
@@ -34,6 +35,7 @@ export default function App() {
   const [copied, setCopied] = useState(false);
   const [lastUrl, setLastUrl] = useState("");
   const [verified, setVerified] = useState(false);
+  const [openTeam, setOpenTeam] = useState("Nuovas Team");
   const accRef = useRef(null);
 
   const cleanFt = ft.trim().replace(/\s+/g, "").toUpperCase();
@@ -64,6 +66,11 @@ export default function App() {
   function handleAccKeyDown(e) {
     if (e.key === "Enter" && isValid) handleVerify();
   }
+  
+  useEffect(()=>(
+    console.log(openTeam)
+    
+  ),[openTeam])
 
   return (
     <section className="w-full min-h-screen bg-[#f0f7f4] flex flex-col">
@@ -212,10 +219,26 @@ export default function App() {
               key={team.name}
               className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-cbe-100 px-5 py-2 gap-3 max-sm:my-2 overflow-hidden"
             >
-              <h3 className="text-lg font-bold text-green-600">
-                {team.name} Acc Num's
-              </h3>
-              <div className="flex flex-col">
+              <button
+                onClick={() =>
+                  setOpenTeam(openTeam === team.name ? null : team.name)
+                }
+                className="w-full flex justify-between items-center gap-3"
+              >
+                <h3 className="text-lg font-bold text-green-600">
+                  {team.name} Acc Num's
+                </h3>
+                <ChevronDown
+                  className={`text-green-600 transition-transform duration-200 ${
+                    openTeam === team.name ? "rotate-0" : "-rotate-90"
+                  }`}
+                  absoluteStrokeWidth
+                />
+              </button>
+
+              {
+                openTeam === team.name ? 
+                  <div className="flex flex-col">
                 {team.accNum.map((accN) => (
                   <span key={accN.acc} className="flex my-2 gap-x-2">
                     <input
@@ -230,6 +253,9 @@ export default function App() {
                   </span>
                 ))}
               </div>
+              : null
+              }
+              
             </div>
           ))}
         </div>
