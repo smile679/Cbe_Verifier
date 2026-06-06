@@ -1,10 +1,31 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import {
   CheckIcon,
   CopyIcon,
   ExternalLinkIcon,
   ReceiptIcon,
 } from "./icons/Icons";
+
+ const teams = [
+   {
+     name: "Nuovas Team",
+     accNum: [
+       { name: "Natnael Haile Gebreslasie", acc: "76345507" },
+       { name: "Fillimon Teklay", acc: "11733177" },
+       { name: "Samson Gidey Beyene", acc: "01366152" },
+       { name: "Mr Biniyam Surafel Gerensea", acc: "60052357" },
+     ],
+   },
+   {
+     name: "Coffee Team",
+     accNum: [
+       { name: "Ermias Gebreslase", acc: "85334628" },
+       { name: "BIRUKTAREKE GEBREMICHAEL", acc: "11497889" },
+       { name: "Mussie Gebremicheal Bahta", acc: "18462905" },
+       { name: "Hanibal teklay brhane", acc: "96534431" },
+     ],
+   },
+ ];
 
 export default function App() {
   const [ft, setFt] = useState("");
@@ -21,13 +42,6 @@ export default function App() {
   const builtUrl = isValid
     ? `https://apps.cbe.com.et:100/?id=${cleanFt}${cleanAcc}`
     : "";
-
-  const accNum = [
-    { name: "Natnael Haile Gebreslasie", acc: "76345507" },
-    { name: "Fillimon Teklay", acc: "11733177" },
-    { name: "Samson Gidey Beyene", acc: "01366152" },
-    { name: "Mr Biniyam Surafel Gerensea", acc: "60052357" },
-  ];
 
   function handleVerify() {
     const url = builtUrl;
@@ -51,10 +65,6 @@ export default function App() {
     if (e.key === "Enter" && isValid) handleVerify();
   }
 
-  useEffect(()=>{
-    console.log(selectedAcc);
-    
-  },[selectedAcc])
   return (
     <div className="min-h-screen bg-[#f0f7f4] flex max-sm:flex-col-reverse items-center justify-center gap-5 p-4 mb-20">
       <div className="w-full max-w-md">
@@ -97,10 +107,13 @@ export default function App() {
                 onKeyDown={handleFtKeyDown}
                 placeholder="e.g. FT260886R92Z"
                 spellCheck={false}
-                maxLength={14}
+                maxLength={12}
                 autoComplete="off"
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 text-[15px] font-mono bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cbe-500 focus:border-transparent transition-all placeholder-gray-300 text-gray-800"
               />
+              <p className="text-xs text-gray-400 mt-1.5">
+                {cleanFt.length}/12 digits entered
+              </p>
             </div>
 
             {/* Account Number */}
@@ -186,25 +199,32 @@ export default function App() {
           <span>Created By Axon Tech.</span>
         </p>
       </div>
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-cbe-100 p-5 gap-5 max-sm:my-10 overflow-hidden">
-        <h3 className="text-lg font-bold text-green-600">
-          Team *Nouva* Acc Num's
-        </h3>
-        <div className="flex flex-col">
-          {accNum.map((accN) => (
-            <span key={accN.acc} className="flex my-2 gap-x-2">
-              <input
-                type="radio"
-                id={accN.acc}
-                name="acc"
-                value={accN.acc}
-                onChange={(e) => setSelectedAcc(e.target.value)}
-                checked={selectedAcc === accN.acc}
-              />
-              <label htmlFor={accN.acc}>{accN.name}</label>
-            </span>
-          ))}
-        </div>
+      <div className="flex flex-col gap-5">
+        {teams.map((team) => (
+          <div
+            key={team.name}
+            className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-cbe-100 px-5 py-2 gap-3 max-sm:my-10 overflow-hidden"
+          >
+            <h3 className="text-lg font-bold text-green-600">
+              {team.name} Acc Num's
+            </h3>
+            <div className="flex flex-col">
+              {team.accNum.map((accN) => (
+                <span key={accN.acc} className="flex my-2 gap-x-2">
+                  <input
+                    type="radio"
+                    id={accN.acc}
+                    name="acc"
+                    value={accN.acc}
+                    onChange={(e) => setSelectedAcc(e.target.value)}
+                    checked={selectedAcc === accN.acc}
+                  />
+                  <label htmlFor={accN.acc}>{accN.name}</label>
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
